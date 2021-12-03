@@ -133,8 +133,8 @@ export default function UserInfoTable(props) {
                     }
                 </Card.Body>
                 <Card.Footer>                    
-                    <Button variant="outline-warning" onClick={logUserOut}>Wyloguj się</Button>
-                    <Button variant="outline-danger" onClick={props.deleteUser}>Usuń konto</Button>
+                    <Button className="float-left" variant="outline-warning" onClick={logUserOut}>Wyloguj się</Button>
+                    <Button className="float-right" variant="outline-danger" onClick={props.deleteUser}>Usuń konto</Button>
                 </Card.Footer>
             </Card>
         </Col>

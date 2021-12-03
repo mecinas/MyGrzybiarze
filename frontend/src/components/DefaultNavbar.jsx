@@ -6,7 +6,7 @@ import companyLogo from '../resources/company_logo.png'
 export default function DefaultNavbar() {
     return (
         <Navbar bg="warning" variant="light">
-            <Navbar.Brand>
+            <Navbar.Brand href="/dashboard">
                 <img
                     src={companyLogo}
                     width="80"

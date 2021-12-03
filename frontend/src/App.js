@@ -1,6 +1,5 @@
-import './App.css';
-import {useState} from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import Start from './components/Start'
@@ -11,58 +10,65 @@ import DefaultNavbar from './components/DefaultNavbar'
 import AccountManager from './components/account/AccountManager'
 import NotAuthorized from './components/NotAuthorized'
 
-//Zabezpieczenie stron
-
 function App() {
 
   const { isAuthenticated, isLoading } = useAuth0();
   const [isLogged, setIsLogged] = useState(sessionStorage.getItem('isLogged'))
+  const location = useLocation();
+
   return (
     <div className="App">
+      {console.log("isLoading: " + isLoading)}
+      {console.log("isAuthenticated: " + isAuthenticated)}
+      {console.log("isLogged: " + isLogged)}
       <Router>
-        <Route exact path="/">
-          <Start />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Start />
+          </Route>
 
-        <Route path="/redirect">
-          {!isLoading && isAuthenticated &&
-            <Redirecting setIsLogged={setIsLogged}/>
-          }
-          {!isLoading && !isAuthenticated &&
-            <NotAuthorized />
-          }
-        </Route>
+          {!isLoading && <Router>
+            <Switch>
+              {isAuthenticated && <Router>
+                <Switch>
 
-        <Route path="/account">
-        {!isLoading && isAuthenticated && isLogged &&
-            <DefaultNavbar />
-          }
-          {!isLoading && (!isAuthenticated || !isLogged)&&
-            <NotAuthorized />
-          }
-        </Route>
+                  <Route path="/redirect">
+                    <Redirecting setIsLogged={setIsLogged} />
+                  </Route>
 
-        <Route path="/account/dashboard">
-        {!isLoading && isAuthenticated && isLogged &&
-            <Dashboard />
-          }
-        </Route>
+                  <Route path="/register">
+                    <Register setIsLogged={setIsLogged} />
+                  </Route>
 
-        <Route path="/account/manager">
-        {!isLoading && isAuthenticated && isLogged &&
-            <AccountManager />
-          }
-        </Route>
+                  {isLogged && <Router>
+                    <Route path="/account">
+                      <DefaultNavbar />
+                    </Route>
 
-        <Route path="/register">
-        {!isLoading && isAuthenticated &&
-            <Register setIsLogged={setIsLogged}/>
-          }
-          {!isLoading && !isAuthenticated &&
-            <NotAuthorized />
-          }
-        </Route>
+                    <Route path="/account/dashboard">
+                      <Dashboard />
+                    </Route>
 
+                    <Route path="/account/manager">
+                      <AccountManager />
+                    </Route>
+
+                  </Router>}
+
+                  <Route path="*">
+                    <NotAuthorized />
+                  </Route>
+
+                </Switch>
+              </Router>}
+
+              <Route path="*">
+                <NotAuthorized />
+              </Route>
+
+            </Switch>
+          </Router>}
+        </Switch>
       </Router>
     </div>
   );

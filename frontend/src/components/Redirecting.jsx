@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Spinner } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ import '../styles/Redirecting.css'
 
 export default function Redirecting(props) {
     const [isRegistered, setIsRegistered] = useState(null);
-    const [redirection, setRedirection] = useState();
+    const history = useHistory();
     const { user } = useAuth0();
 
     const checkIfRegistred = () => {
@@ -33,11 +33,11 @@ export default function Redirecting(props) {
     useEffect(() => {
         if(isRegistered !== null)
             if(isRegistered ===  false)
-                setRedirection(<Redirect to="/register" />)
+                history.push("/register")
             else{
-                setRedirection(<Redirect to="/account/dashboard" />)
                 sessionStorage.setItem('isLogged', true)
                 props.setIsLogged(true)
+                history.push("/account/dashboard")
             }
     }, [isRegistered])
 
@@ -45,7 +45,6 @@ export default function Redirecting(props) {
         <Container>
             <h3 className="text">Przekierunkowanie do odpowiedniej strony</h3>
             <Spinner className="spinner" animation="border" variant="warning" />
-            {redirection}
         </Container>
     )
 }

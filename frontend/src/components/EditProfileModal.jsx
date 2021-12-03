@@ -16,7 +16,6 @@ export default function EditProfileModal(props) {
   const updateProfileData = (url, data) => {
     axios.put(url, data)
       .then(resp => {
-
       }).catch(error => {
         console.log(error.message)
       })

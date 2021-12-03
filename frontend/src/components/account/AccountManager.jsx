@@ -64,7 +64,7 @@ export default function AccountManager() {
     }
 
     const getInfo = (setUserInfo) => {
-        var url = "http://localhost:5000/getInfo"
+        var url = "http://localhost:5000/user/single"
         if (user !== undefined) {
             axios.get(url, {
                 params: {
