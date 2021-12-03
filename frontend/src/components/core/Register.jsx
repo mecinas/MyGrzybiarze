@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 
-import '../styles/Register.css'
+import '../../styles/Register.css'
 
 export default function CreateUser(props) {
     const history = useHistory();

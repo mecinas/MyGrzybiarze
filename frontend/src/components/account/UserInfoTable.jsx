@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom'
 import { Pencil } from 'react-bootstrap-icons';
 import { useAuth0 } from '@auth0/auth0-react';
 
-import EditProfileModal from '../EditProfileModal'
+import EditProfileModal from './EditProfileModal'
 import '../../styles/account/UserInfoTable.css'
 
 export default function UserInfoTable(props) {

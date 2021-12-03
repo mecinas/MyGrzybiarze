@@ -4,7 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 
-import '../styles/Redirecting.css'
+import '../../styles/Redirecting.css'
 
 export default function Redirecting(props) {
     const [isRegistered, setIsRegistered] = useState(null);

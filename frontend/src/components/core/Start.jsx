@@ -2,10 +2,10 @@ import React from 'react'
 import { Container, Button, Image } from 'react-bootstrap'
 import {useAuth0} from '@auth0/auth0-react'
 
-import mushroom from '../resources/mushroom_2.jpg'
-import companyLogo from '../resources/company_logo.png'
-import auth0Logo from '../resources/auth0_logo.svg'
-import '../styles/Start.css'
+import mushroom from '../../resources/mushroom_2.jpg'
+import companyLogo from '../../resources/company_logo.png'
+import auth0Logo from '../../resources/auth0_logo.svg'
+import '../../styles/Start.css'
 
 export default function Start() {
     const {loginWithRedirect} = useAuth0();

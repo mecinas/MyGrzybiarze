@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import Start from './components/Start'
-import Redirecting from './components/Redirecting'
-import Register from './components/Register'
-import Dashboard from './components/Dashboard'
-import DefaultNavbar from './components/DefaultNavbar'
+import Start from './components/core/Start'
+import Redirecting from './components/core/Redirecting'
+import Register from './components/core/Register'
+import Dashboard from './components/dashboard/Dashboard'
+import DefaultNavbar from './components/core/DefaultNavbar'
 import AccountManager from './components/account/AccountManager'
-import NotAuthorized from './components/NotAuthorized'
+import NotAuthorized from './components/core/NotAuthorized'
 
 function App() {
 
@@ -18,9 +18,6 @@ function App() {
 
   return (
     <div className="App">
-      {console.log("isLoading: " + isLoading)}
-      {console.log("isAuthenticated: " + isAuthenticated)}
-      {console.log("isLogged: " + isLogged)}
       <Router>
         <Switch>
           <Route exact path="/">
