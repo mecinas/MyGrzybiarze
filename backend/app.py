@@ -3,10 +3,12 @@ import io
 import json
 
 from RESTControllers.user import user_controller
+from RESTControllers.friendship import friendship_controller
 import manipulate_database as md
 
 app = Flask(__name__)
 app.register_blueprint(user_controller)
+app.register_blueprint(friendship_controller)
 
 
 
