@@ -1,7 +1,15 @@
 TODOS:
 Put avatar się popsuło
+Refactor Navbar
 Sieć znajomych
-    Najechanie na element listy wyświetla card
-    Wyświetlenie imię i nazwisko
-    Dodanie przycisku dodania do znajomych
-    Ustawienie graficznie
+    Back
+        Dodanie w bazie danych struktury do znajomych
+        Dodanie w bazie danych struktury do powiadomień
+        Endpoint na dodanie znajomego
+        Endpoint na wyciągnięcie powiadomień
+        Endpoint na sprawdzenie znajomości
+    Front
+        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi
+        Request na dodanie do znajomego
+        Dodanie wyglądu na powiadomienia
+        Request na pobieranie powiadomień
