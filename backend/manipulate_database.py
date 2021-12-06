@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 
 def delete_database():
@@ -61,15 +62,15 @@ def get_user(email):
 
 def get_users():
     conn = sqlite3.connect('account.db')
-    cursor = conn.execute("SELECT A.FIRSTNAME, A.SURNAME FROM ACCOUNT A")
-    rows_name_arr = ["firstname","surname"]
+    cursor = conn.execute("SELECT A.FIRSTNAME, A.SURNAME, A.EMAIL FROM ACCOUNT A")
+    rows_name_arr = ["firstname","surname", "email"]
 
     result_list = []
     for row in cursor.fetchall():
         result_dict = {}
         for i in range(len(row)):
             result_dict[rows_name_arr[i]] = row[i]
-        result_list.append(result_dict)
+        result_list.append(json.dumps(result_dict))
     return result_list
 
 

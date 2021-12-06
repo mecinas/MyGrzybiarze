@@ -1,7 +1,7 @@
 TODOS:
-Poukładać komponenty do paczki
+Put avatar się popsuło
 Sieć znajomych
-    Wyszukiwarka na dashboard do userów poprzez rozwijaną ikonkę
-        Rozwijana lista
-        Pobieranie info o userach i umieszczenie pasującego wzorca na liście
-        Przy najechaniu na osobę wyświetla się jej powiększone zdjęcie info i przycisk zaproszenia
+    Najechanie na element listy wyświetla card
+    Wyświetlenie imię i nazwisko
+    Dodanie przycisku dodania do znajomych
+    Ustawienie graficznie
