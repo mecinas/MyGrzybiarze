@@ -3,15 +3,7 @@ Put avatar się popsuło
 Refactor Navbar
 Sieć znajomych
     Back
-        Dodanie w bazie danych struktury do powiadomień
-            id autoincremet
-            foreign key to email użytkownika
-            pole tekstowe
-
-            Dodanie znajomego dodaje powiadomienie
-        Endpoint na dodanie znajomego
-        Endpoint na wyciągnięcie powiadomień
-        Endpoint na sprawdzenie znajomości
+        Dodanie znajomego dodaje powiadomienie, jaka logika??
     Front
         Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi
         Request na dodanie do znajomego

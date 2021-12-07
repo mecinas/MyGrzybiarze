@@ -33,7 +33,7 @@ def create_database():
         MESSAGE             TEXT                NOT NULL,
         USER_EMAIL          TEXT                NOT NULL,
         REQUEST_URL         TEXT                NULL,
-        FOREIGN KEY(FIRST_PERSON_EMAIL) REFERENCES ACCOUNT(EMAIL);''')
+        FOREIGN KEY(USER_EMAIL) REFERENCES ACCOUNT(EMAIL));''')
 
 ###############
 # NOTIFICATION
@@ -42,19 +42,33 @@ def create_database():
 def add_notification(notification_type, message, user_email, request_url=None):
     conn = sqlite3.connect('account.db')
     if request_url == None:
-        conn.execute("INSERT INTO NOTIFICATION (TYPE, MESSAGE, USER_EMAIL) \
+        conn.execute("INSERT INTO NOTIFICATION (NOTIFICATION_TYPE, MESSAGE, USER_EMAIL) \
             VALUES (?, ?, ?)", (notification_type, message, user_email))
     else:
-        conn.execute("INSERT INTO NOTIFICATION (TYPE, MESSAGE, USER_EMAIL, REQUEST_URL) \
-            VALUES (?, ?, ?)", (notification_type, message, user_email, request_url))
+        conn.execute("INSERT INTO NOTIFICATION (NOTIFICATION_TYPE, MESSAGE, USER_EMAIL, REQUEST_URL) \
+            VALUES (?, ?, ?, ?)", (notification_type, message, user_email, request_url))
 
     conn.commit()
 
-def delete_notification(first_email, sec_email): #TODO
+def delete_notification(notification_id):
     conn = sqlite3.connect('account.db')
-    conn.execute("DELETE FROM FRIENDSHIP WHERE ((FRIENDSHIP.FIRST_PERSON_EMAIL = ? AND FRIENDSHIP.SEC_PERSON_EMAIL = ?) OR \
-        (FRIENDSHIP.FIRST_PERSON_EMAIL = ? AND FRIENDSHIP.SEC_PERSON_EMAIL = ?))" ,(first_email, sec_email, sec_email, first_email))
+    conn.execute("DELETE FROM NOTIFICATION WHERE NOTIFICATION.ID = {}".format(notification_id))
     conn.commit()
+
+def get_user_notifications(user_email):
+    conn = sqlite3.connect('account.db')
+    cursor = conn.execute("SELECT N.ID, N.NOTIFICATION_TYPE, N.MESSAGE, N.REQUEST_URL FROM NOTIFICATION N \
+        WHERE N.USER_EMAIL = '{}'".format(user_email))
+
+    rows_name_arr = ["id", "notification_type", "message", "request_url"]
+    result_list = []
+    for row in cursor.fetchall():
+        result_dict = {}
+        for i in range(len(row)):
+            result_dict[rows_name_arr[i]] = row[i]
+        result_list.append(result_dict)
+
+    return result_list
 
 ###############
 # FRIEND
@@ -173,22 +187,21 @@ def change_photo(photo, email):
 
 def change_name(firstname, surname, email):
     conn = sqlite3.connect('account.db')
-    conn.execute("UPDATE ACCOUNT SET FIRSTNAME = '{}', SURNAME = '{}' WHERE EMAIL = '{}'".format(
-        firstname, surname, email))
+    conn.execute("UPDATE ACCOUNT SET FIRSTNAME = ?, SURNAME = ? WHERE EMAIL = ?", (firstname, surname, email))
     conn.commit()
 
 
 def change_nickname(nickname, email):
     conn = sqlite3.connect('account.db')
     conn.execute(
-        "UPDATE ACCOUNT SET NICKNAME = '{}' WHERE EMAIL = '{}'".format(nickname, email))
+        "UPDATE ACCOUNT SET NICKNAME = ? WHERE EMAIL = ?", (nickname, email))
     conn.commit()
 
 
 def change_date_of_birth(date_of_birth, email):
     conn = sqlite3.connect('account.db')
     conn.execute(
-        "UPDATE ACCOUNT SET DATEOFBIRTH = '{}' WHERE EMAIL = '{}'".format(date_of_birth, email))
+        "UPDATE ACCOUNT SET DATEOFBIRTH = ? WHERE EMAIL = ?", (date_of_birth, email))
     conn.commit()
 
 
