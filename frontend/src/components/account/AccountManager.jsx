@@ -13,7 +13,7 @@ export default function AccountManager() {
     let history = useHistory();
 
     const putAvatar = (data, setSource, encodeImage) => {
-        var url = "http://localhost:5000/avatar"
+        var url = "http://localhost:5000/account/change/avatar"
         axios.put(url, data, {
             headers: {
                 'accept': 'application/json',
@@ -21,9 +21,6 @@ export default function AccountManager() {
                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
             }
         })
-            .then(response => {
-                console.log(response)
-            })
             .catch(error => {
                 console.log(error.message)
             })
@@ -34,7 +31,7 @@ export default function AccountManager() {
 
     const getAvatar = (setSource, encodeImage) => {
         const time = new Date().getTime(); //To make sure that request will execute despite cache photo memory
-        var url = "http://localhost:5000/avatar"
+        var url = "http://localhost:5000/account/avatar"
         if (user !== undefined) {
             axios.get(url, {
                 responseType: 'arraybuffer',

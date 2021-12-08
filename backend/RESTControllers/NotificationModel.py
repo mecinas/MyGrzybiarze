@@ -2,8 +2,8 @@ from flask import Flask, request, make_response, send_file, Blueprint
 from flask import jsonify
 import json
 
-from RESTControllers.configREST import allowed_methods, send_response
-import manipulate_database as md
+from RESTControllers.ConfigREST import allowed_methods, send_response
+from ManipulateDatabase import NotificationRepository as manipulate_notification
 
 notification_controller = Blueprint('NotificationRESTController', __name__)
 
@@ -19,7 +19,7 @@ def add_notification():
     user_email = data["user_email"]
     request_url = data.get("request_url") #Może zwrócić None
 
-    md.add_notification(notification_type, message, user_email, request_url)
+    manipulate_notification.add_notification(notification_type, message, user_email, request_url)
     return send_response("Poprawnie zarejestrowano powiadomienie")
 
 @notification_controller.route('/notification', methods=['DELETE'])
@@ -27,13 +27,13 @@ def delete_notification():
     data = json.loads(request.data.decode('utf-8'))
     notification_id = data["notification_id"]
 
-    md.delete_notification(notification_id)
+    manipulate_notification.delete_notification(notification_id)
     return send_response("Poprawnie usunięto powiadomienie")
 
 @notification_controller.route('/notification', methods=['GET'])
 def get_notifications():
     user_email = request.args["user_email"]
-    notification_list = md.get_user_notifications(user_email)
+    notification_list = manipulate_notification.get_user_notifications(user_email)
 
     return send_response(jsonify(notification_list))
 

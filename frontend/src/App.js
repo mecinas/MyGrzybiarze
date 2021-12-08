@@ -6,7 +6,7 @@ import Start from './components/core/Start'
 import Redirecting from './components/core/Redirecting'
 import Register from './components/core/Register'
 import Dashboard from './components/dashboard/Dashboard'
-import DefaultNavbar from './components/core/DefaultNavbar'
+import DefaultNavbar from './components/navbar/DefaultNavbar'
 import AccountManager from './components/account/AccountManager'
 import NotAuthorized from './components/core/NotAuthorized'
 
