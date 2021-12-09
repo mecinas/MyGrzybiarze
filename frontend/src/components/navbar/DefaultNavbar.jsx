@@ -1,6 +1,7 @@
 import React from 'react'
-import { Navbar, Nav} from 'react-bootstrap'
+import { Navbar, Nav, Button} from 'react-bootstrap'
 import ProfileTypeahead from './ProfileTypeahead'
+import Notification from './Notification'
 
 import companyLogo from '../../resources/company_logo.png'
 
@@ -22,7 +23,7 @@ export default function DefaultNavbar() {
                 <Nav.Link href="#features">TODO</Nav.Link>
             </Nav>
             <ProfileTypeahead />
-
+            <Notification />
         </Navbar>
     )
 }

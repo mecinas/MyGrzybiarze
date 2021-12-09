@@ -78,11 +78,11 @@ export default function ProfileTypeahead() {
     };
 
     return (
-        <div className="mr-4 d-flex">
+        <div className="mr-4 d-flex position-relative">
             {isProfileHidden &&
                 <Card
                     className="position-absolute"
-                    style={{ width: '18rem', right: "274px" }}
+                    style={{ width: '18rem', right: "235px" }}
                     onMouseEnter={() => { setIsProfileHidden(true) }}
                     onMouseLeave={() => { setIsProfileHidden(false) }}>
                     <Card.Header className="d-flex" style={{ width: '100%' }}>

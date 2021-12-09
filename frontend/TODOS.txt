@@ -1,11 +1,14 @@
 TODOS:
-Put avatar się popsuło
-Refactor Navbar
+Zmiana w typeahead na relative dla parent div
 Sieć znajomych
     Back
-        Dodanie znajomego dodaje powiadomienie, jaka logika??
+        Usunięcie requestURL
     Front
-        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi
         Request na dodanie do znajomego
         Dodanie wyglądu na powiadomienia
         Request na pobieranie powiadomień
+        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi
+
+Logika powiadomienia    
+    Request na Powiadomienia z action
+    Request na usunięcie powiadomienia albo request usunięcie powiadomienia stworzenie powiadomienia z info i dodanie do znajomych
