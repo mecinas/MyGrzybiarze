@@ -1,13 +1,13 @@
 TODOS:
-Zmiana w typeahead na relative dla parent div
+Navbar  
+    Info o zalogowanym użytkowniku
 Sieć znajomych
-    Back
-        Usunięcie requestURL
     Front
-        Request na dodanie do znajomego
-        Dodanie wyglądu na powiadomienia
-        Request na pobieranie powiadomień
-        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi
+        Rerender przy wykonaniu request
+        Źle działa wyciąganie imienia i nazwiska do powiadomienia
+
+        Request na stworzenie powiadomienia przy zaproszeniu do znajomych
+        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi a gdy są wyświetlanie info o znajomości i przycisk na usunięcie znajomości
 
 Logika powiadomienia    
     Request na Powiadomienia z action

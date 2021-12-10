@@ -1,6 +1,6 @@
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import React, { useState, useEffect, useRef } from 'react'
-import { Bell,  PersonPlusFill, PersonXFill, Trash} from 'react-bootstrap-icons';
+import { Bell, PersonPlusFill, PersonXFill, Trash } from 'react-bootstrap-icons';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -9,6 +9,59 @@ export default function Notification() {
     const [notificationList, setNotificationList] = useState(<ListGroup.Item>Brak nowych powiadomień</ListGroup.Item>);
     const wrapperRef = useRef(null);
     const { user } = useAuth0();
+
+    const getInfo = (user_email) => {
+        var url = "http://localhost:5000/user/single"
+        var name
+        if (user !== undefined) {
+            axios.get(url, {
+                params: {
+                    email: user_email
+                }
+            })
+                .then(resp => {
+                    name = resp.data.firstname + " " + resp.data.surname
+                })
+        }
+        return name
+    }
+
+    const deleteNotification = (notification_id) => {
+        var url = "http://localhost:5000/notification"
+        axios.delete(url, {
+            data: { notification_id: notification_id }
+        })
+            .catch(error => {
+                console.log(error.message)
+            })
+    }
+
+    const postNotification = (notification_type, message, user_email) => {
+        var url = "http://localhost:5000/notification"
+        axios.post(url,
+            {
+                notification_type: notification_type,
+                message: message,
+                user_email: user_email
+            }
+        )
+            .catch(error => {
+                console.log(error.message)
+            })
+    }
+
+    const postFriendship = (sec_user_email) => {
+        var url = "http://localhost:5000/friendship"
+        if (user !== undefined) {
+            axios.post(url, {
+                "first_email": user.email,
+                "sec_email": sec_user_email
+            })
+                .catch(error => {
+                    console.log(error.message)
+                })
+        }
+    }
 
     useEffect(() => {
         function handleClick(event) {
@@ -44,12 +97,14 @@ export default function Notification() {
                                 return (
                                     <ListGroup.Item key={singleNotification.id}>
                                         {singleNotification.message}
-                                        <Button 
-                                            className="position-absolute" 
-                                            variant="dark" 
+                                        <Button
+                                            className="position-absolute"
+                                            variant="dark"
                                             style={{ right: "0", top: "0" }}
-                                            onClick={() => console.log("smiec")}>
-                                            <Trash className="d-flex" size="20"/>
+                                            onClick={() => {
+                                                deleteNotification(singleNotification.id)
+                                            }}>
+                                            <Trash className="d-flex" size="20" />
                                         </Button>
                                     </ListGroup.Item>
                                 )
@@ -57,19 +112,26 @@ export default function Notification() {
                                 return (
                                     <ListGroup.Item key={singleNotification.id}>
                                         {singleNotification.message}
-                                        <Button 
-                                            className="position-absolute" 
-                                            variant="success" 
+                                        <Button
+                                            className="position-absolute"
+                                            variant="success"
                                             style={{ right: "0", top: "0" }}
-                                            onClick={() => console.log("Dodaj")}>
-                                            <PersonPlusFill className="d-flex" size="20"/>
+                                            onClick={() => {
+                                                let notification_message = getInfo(singleNotification.request_email) + " przyjął/eła twoje zaproszenie do znajomych"
+                                                postNotification("info", notification_message, singleNotification.request_email)
+                                                postFriendship(singleNotification.request_email)
+                                                deleteNotification(singleNotification.id)
+                                            }}>
+                                            <PersonPlusFill className="d-flex" size="20" />
                                         </Button>
-                                        <Button 
-                                            className="position-absolute" 
-                                            variant="danger" 
+                                        <Button
+                                            className="position-absolute"
+                                            variant="danger"
                                             style={{ right: "0", bottom: "0" }}
-                                            onClick={() => console.log("usun")}>
-                                            <PersonXFill className="d-flex" size="20"/>
+                                            onClick={() => {
+                                                deleteNotification(singleNotification.id)
+                                            }}>
+                                            <PersonXFill className="d-flex" size="20" />
                                         </Button>
                                     </ListGroup.Item>
                                 )
