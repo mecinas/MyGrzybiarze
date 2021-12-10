@@ -30,7 +30,7 @@ def create_database():
         NOTIFICATION_TYPE   TEXT                NOT NULL,
         MESSAGE             TEXT                NOT NULL,
         USER_EMAIL          TEXT                NOT NULL,
-        REQUEST_URL         TEXT                NULL,
+        REQUEST_EMAIL         TEXT                NULL,
         FOREIGN KEY(USER_EMAIL) REFERENCES ACCOUNT(EMAIL));''')
 
 

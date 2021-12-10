@@ -3,9 +3,6 @@ Navbar
     Info o zalogowanym użytkowniku
 Sieć znajomych
     Front
-        Rerender przy wykonaniu request
-        Źle działa wyciąganie imienia i nazwiska do powiadomienia
-
         Request na stworzenie powiadomienia przy zaproszeniu do znajomych
         Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi a gdy są wyświetlanie info o znajomości i przycisk na usunięcie znajomości
 

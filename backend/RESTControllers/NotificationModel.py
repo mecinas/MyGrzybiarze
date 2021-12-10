@@ -17,9 +17,9 @@ def add_notification():
     notification_type = data["notification_type"]
     message = data["message"]
     user_email = data["user_email"]
-    request_url = data.get("request_url") #Może zwrócić None
+    request_email = data.get("request_email") #Może zwrócić None
 
-    manipulate_notification.add_notification(notification_type, message, user_email, request_url)
+    manipulate_notification.add_notification(notification_type, message, user_email, request_email)
     return send_response("Poprawnie zarejestrowano powiadomienie")
 
 @notification_controller.route('/notification', methods=['DELETE'])

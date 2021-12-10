@@ -10,34 +10,24 @@ export default function Notification() {
     const wrapperRef = useRef(null);
     const { user } = useAuth0();
 
-    const getInfo = (user_email) => {
+    const createNotification = (user_email) => {
         var url = "http://localhost:5000/user/single"
-        var name
         if (user !== undefined) {
             axios.get(url, {
                 params: {
-                    email: user_email
+                    email: user.email
                 }
             })
                 .then(resp => {
-                    name = resp.data.firstname + " " + resp.data.surname
+                    postNotification(user_email, resp.data.firstname + " " + resp.data.surname)
                 })
         }
-        return name
     }
 
-    const deleteNotification = (notification_id) => {
+    const postNotification = (user_email, user_name) => {
         var url = "http://localhost:5000/notification"
-        axios.delete(url, {
-            data: { notification_id: notification_id }
-        })
-            .catch(error => {
-                console.log(error.message)
-            })
-    }
-
-    const postNotification = (notification_type, message, user_email) => {
-        var url = "http://localhost:5000/notification"
+        var notification_type = "info"
+        var message = user_name + " przyjął/eła twoje zaproszenie do znajomych"
         axios.post(url,
             {
                 notification_type: notification_type,
@@ -61,6 +51,16 @@ export default function Notification() {
                     console.log(error.message)
                 })
         }
+    }
+
+    const deleteNotification = (notification_id) => {
+        var url = "http://localhost:5000/notification"
+        axios.delete(url, {
+            data: { notification_id: notification_id }
+        })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
     useEffect(() => {
@@ -103,6 +103,9 @@ export default function Notification() {
                                             style={{ right: "0", top: "0" }}
                                             onClick={() => {
                                                 deleteNotification(singleNotification.id)
+                                                setTimeout(() => {
+                                                    getNotifications()
+                                                }, 100);
                                             }}>
                                             <Trash className="d-flex" size="20" />
                                         </Button>
@@ -117,10 +120,13 @@ export default function Notification() {
                                             variant="success"
                                             style={{ right: "0", top: "0" }}
                                             onClick={() => {
-                                                let notification_message = getInfo(singleNotification.request_email) + " przyjął/eła twoje zaproszenie do znajomych"
-                                                postNotification("info", notification_message, singleNotification.request_email)
                                                 postFriendship(singleNotification.request_email)
                                                 deleteNotification(singleNotification.id)
+                                                createNotification(singleNotification.request_email)
+                                                setTimeout(() => {
+                                                    getNotifications()
+                                                }, 3000);
+
                                             }}>
                                             <PersonPlusFill className="d-flex" size="20" />
                                         </Button>
@@ -130,6 +136,9 @@ export default function Notification() {
                                             style={{ right: "0", bottom: "0" }}
                                             onClick={() => {
                                                 deleteNotification(singleNotification.id)
+                                                setTimeout(() => {
+                                                    getNotifications()
+                                                }, 3000);
                                             }}>
                                             <PersonXFill className="d-flex" size="20" />
                                         </Button>

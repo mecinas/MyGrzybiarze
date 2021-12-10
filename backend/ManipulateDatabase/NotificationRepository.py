@@ -1,13 +1,13 @@
 import sqlite3
 
-def add_notification(notification_type, message, user_email, request_url=None):
+def add_notification(notification_type, message, user_email, request_email=None):
     conn = sqlite3.connect('account.db')
-    if request_url == None:
+    if request_email == None:
         conn.execute("INSERT INTO NOTIFICATION (NOTIFICATION_TYPE, MESSAGE, USER_EMAIL) \
             VALUES (?, ?, ?)", (notification_type, message, user_email))
     else:
-        conn.execute("INSERT INTO NOTIFICATION (NOTIFICATION_TYPE, MESSAGE, USER_EMAIL, REQUEST_URL) \
-            VALUES (?, ?, ?, ?)", (notification_type, message, user_email, request_url))
+        conn.execute("INSERT INTO NOTIFICATION (NOTIFICATION_TYPE, MESSAGE, USER_EMAIL, REQUEST_EMAIL) \
+            VALUES (?, ?, ?, ?)", (notification_type, message, user_email, request_email))
 
     conn.commit()
 
@@ -18,10 +18,10 @@ def delete_notification(notification_id):
 
 def get_user_notifications(user_email):
     conn = sqlite3.connect('account.db')
-    cursor = conn.execute("SELECT N.ID, N.NOTIFICATION_TYPE, N.MESSAGE, N.REQUEST_URL FROM NOTIFICATION N \
+    cursor = conn.execute("SELECT N.ID, N.NOTIFICATION_TYPE, N.MESSAGE, N.REQUEST_EMAIL FROM NOTIFICATION N \
         WHERE N.USER_EMAIL = '{}'".format(user_email))
 
-    rows_name_arr = ["id", "notification_type", "message", "request_url"]
+    rows_name_arr = ["id", "notification_type", "message", "request_email"]
     result_list = []
     for row in cursor.fetchall():
         result_dict = {}
