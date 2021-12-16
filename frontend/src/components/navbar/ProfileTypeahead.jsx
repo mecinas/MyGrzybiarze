@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { Typeahead, Menu, MenuItem } from 'react-bootstrap-typeahead';
-import {Card, Image, Button } from 'react-bootstrap'
+import { Card, Image, Button } from 'react-bootstrap'
 import axios from 'axios';
 
-export default function ProfileTypeahead() {
+export default function ProfileTypeahead(props) {
 
     const [userPhoto, setUserPhoto] = useState(null);
+    const [isFriend, setIsFriend] = useState(false);
     const [options, setOptions] = useState([]);
-    const [userName, setUserName] = useState("");
+    const [selectedUser, setSelectedUser] = useState(null);
     const [isProfileHidden, setIsProfileHidden] = useState(false);
 
     useEffect(() => {
         getUsers()
     }, [])
+
+    useEffect(() => {
+        if (selectedUser !== null) {
+            checkIfFriends()
+            getAvatar()
+        }
+    }, [selectedUser])
 
     const getUsers = () => {
         axios.get("http://localhost:5000/user/list")
@@ -23,13 +31,51 @@ export default function ProfileTypeahead() {
             })
     }
 
-    const getAvatar = (userEmail) => {
+    const checkIfFriends = () => {
+        axios.get("http://localhost:5000/friendship/check", {
+            params: {
+                first_email: props.loggedUser.email,
+                sec_email: selectedUser.email
+            }
+        })
+            .then(resp => {
+                setIsFriend(resp.data.areFriends)
+            }).catch(error => {
+                console.log(error.message)
+            })
+    }
+
+    const deleteFriend = () => {
+        var url = "http://localhost:5000/account/avatar"
+        axios.delete(url, {
+            data: {
+                first_email: props.loggedUser.email,
+                sec_email: selectedUser.email
+            }
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+    const sendFriendRequest = (request_user) => {
+        let url = "http://localhost:5000/notification"
+        let data = {
+            notification_type: "action",
+            message: props.loggedUser.firstname + " " + props.loggedUser.surname + " wysłałał/a Ci zaproszenie do znajomych",
+            user_email: selectedUser.email,
+            request_user: props.loggedUser.email
+        }
+        axios.post(url, data)
+        .catch(error => console.log(error.message))
+    }
+
+    const getAvatar = () => {
         const time = new Date().getTime(); //Prevents cache photo memory
         var url = "http://localhost:5000/account/avatar"
         axios.get(url, {
             responseType: 'arraybuffer',
             params: {
-                email: userEmail,
+                email: selectedUser.email,
                 t: time
             }
         })
@@ -57,12 +103,10 @@ export default function ProfileTypeahead() {
                         <MenuItem
                             key={index}
                             onMouseEnter={() => {
-                                getAvatar(jsonOption.email)
+                                setSelectedUser(jsonOption)
                                 setIsProfileHidden(true)
-                                setUserName(jsonOption.firstname + " " + jsonOption.surname)
                             }}
                             onMouseLeave={() => {
-
                                 setIsProfileHidden(false)
                             }}
                             option={jsonOption.firstname + " " + jsonOption.surname}
@@ -95,11 +139,20 @@ export default function ProfileTypeahead() {
                         }
                     </Card.Header>
                     <Card.Body>
-                        <Card.Title>{userName}</Card.Title>
+                        <Card.Title>{selectedUser.firstname + " " + selectedUser.surname}</Card.Title>
                         <Card.Footer>
-                            <Button variant="outline-success">
-                                Dodaj do znajomych
+                            {!isFriend &&
+                                <Button variant="outline-success" onClick={() => sendFriendRequest()}>
+                                    Dodaj do znajomych
                                 </Button>
+                            }{isFriend &&
+                                <div>
+                                    <Card.Text>Jesteście znajomymi</Card.Text>
+                                    <Button variant="outline-danger" onClick={() => deleteFriend()}>
+                                        Usuń z znajomych
+                                </Button>
+                                </div>
+                            }
                         </Card.Footer>
                     </Card.Body>
                 </Card>

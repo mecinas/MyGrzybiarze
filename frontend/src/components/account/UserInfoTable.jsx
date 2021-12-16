@@ -21,7 +21,7 @@ export default function UserInfoTable(props) {
 
     const setModalForName = () => {
         setModalTitle("Edytuj swoje imię i nazwisko")
-        setModalURL("http://localhost:5000/account/change/name")
+        setModalURL("http://localhost:5000/account/name")
         setModalForm(
             <div>
                 <Form.Group controlId="formBasicFirstname">
@@ -36,7 +36,7 @@ export default function UserInfoTable(props) {
     }
     const setModalForNickname = () => {
         setModalTitle("Edytuj swój nick")
-        setModalURL("http://localhost:5000/account/change/nickname")
+        setModalURL("http://localhost:5000/account/nickname")
         setModalForm(
             <div>
                 <Form.Group controlId="formBasicFirstname">
@@ -48,7 +48,7 @@ export default function UserInfoTable(props) {
 
     const setModalForDateOfBirth = () => {
         setModalTitle("Edytuj swoją datę urodzenia")
-        setModalURL("http://localhost:5000/account/change/dateOfBirth")
+        setModalURL("http://localhost:5000/account/dateOfBirth")
         setModalForm(
             <div>
                 <Form.Group controlId="formBasicDateOfBirth">

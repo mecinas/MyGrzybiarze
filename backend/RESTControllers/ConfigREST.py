@@ -11,6 +11,7 @@ def allowed_methods(methods):
     if origin in allowed_origins:
         response.headers["Access-Control-Allow-Origin"] = origin
 
+    response.headers["Access-Control-Allow-Origin"] = '*'
     response.headers['Access-Control-Allow-Methods'] = ', '.join(methods)
     response.headers["Access-Control-Allow-Headers"] = 'Content-Type, auth_cookie'
     response.headers["Access-Control-Allow-Credentials"] = 'true'
@@ -22,5 +23,6 @@ def send_response(data):
     response = make_response(data, 200)
     if origin in allowed_origins:
         response.headers["Access-Control-Allow-Origin"] = origin
+    response.headers["Access-Control-Allow-Origin"] = '*'
     response.headers["Access-Control-Allow-Credentials"] = 'true'
     return response

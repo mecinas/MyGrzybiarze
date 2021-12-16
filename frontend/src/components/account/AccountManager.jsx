@@ -13,7 +13,7 @@ export default function AccountManager() {
     let history = useHistory();
 
     const putAvatar = (data, setSource, encodeImage) => {
-        var url = "http://localhost:5000/account/change/avatar"
+        var url = "http://localhost:5000/account/avatar"
         axios.put(url, data, {
             headers: {
                 'accept': 'application/json',

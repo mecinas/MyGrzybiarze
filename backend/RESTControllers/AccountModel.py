@@ -63,7 +63,7 @@ def get_users():
     return send_response(jsonify(converted_user_list))
 
 
-@user_controller.route('/account/change/name', methods=['PUT', 'OPTIONS'])
+@user_controller.route('/account/name', methods=['PUT', 'OPTIONS'])
 def change_name():
     if( request.method == 'OPTIONS'):
         return allowed_methods(['PUT'])
@@ -76,7 +76,7 @@ def change_name():
     manipulate_account.change_name(firstname, surname, email)
     return send_response("Poprawnie zmieniono imię i nazwisko")
 
-@user_controller.route('/account/change/nickname', methods=['PUT', 'OPTIONS'])
+@user_controller.route('/account/nickname', methods=['PUT', 'OPTIONS'])
 def change_nickname():
     if( request.method == 'OPTIONS'):
         return allowed_methods(['PUT'])
@@ -88,7 +88,7 @@ def change_nickname():
     manipulate_account.change_nickname(nickname, email)
     return send_response("Poprawnie zmieniono nazwę użytkownika")
 
-@user_controller.route('/account/change/dateOfBirth', methods=['PUT', 'OPTIONS'])
+@user_controller.route('/account/dateOfBirth', methods=['PUT', 'OPTIONS'])
 def change_date_of_birth():
     if( request.method == 'OPTIONS'):
         return allowed_methods(['PUT'])
@@ -100,10 +100,10 @@ def change_date_of_birth():
     manipulate_account.change_date_of_birth(date_of_birth, email)
     return send_response("Poprawnie zmieniono datę urodzin użytkownika")
     
-@user_controller.route('/account/change/avatar', methods=['OPTIONS','PUT']) #Potrafi przestać działać, trzeba logować w bazie
+@user_controller.route('/account/avatar', methods=['OPTIONS','PUT'])
 def post_avatar():
     if( request.method == 'OPTIONS'):
-        return allowed_methods(['PUT'])
+        return allowed_methods(['PUT', 'GET'])
 
     avatar = request.files["avatar"]
     email = request.form["email"]
@@ -111,10 +111,8 @@ def post_avatar():
 
     return send_response("Udało się zmienić avatar")
 
-@user_controller.route('/account/avatar', methods=['GET', 'OPTIONS'])
+@user_controller.route('/account/avatar', methods=['GET'])
 def get_avatar():
-    if( request.method == 'OPTIONS'):
-        return allowed_methods(['GET', 'PUT'])
     email = request.args["email"]
 
     photo = manipulate_account.get_photo(email)

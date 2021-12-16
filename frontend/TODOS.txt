@@ -1,11 +1,6 @@
 TODOS:
-Navbar  
-    Info o zalogowanym użytkowniku
-Sieć znajomych
-    Front
-        Request na stworzenie powiadomienia przy zaproszeniu do znajomych
-        Wyświetlanie przycisku do zaproszenia gdy nie są znajomymi a gdy są wyświetlanie info o znajomości i przycisk na usunięcie znajomości
-
-Logika powiadomienia    
-    Request na Powiadomienia z action
-    Request na usunięcie powiadomienia albo request usunięcie powiadomienia stworzenie powiadomienia z info i dodanie do znajomych
+Azure
+    Reaktywacja konta
+    Zabezpieczenie aby nie ściągnęło z konta
+    Resource Group
+    Azure Custom Vision

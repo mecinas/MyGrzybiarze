@@ -1,11 +1,35 @@
-import React from 'react'
-import { Navbar, Nav, Button} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Navbar, Nav, Button } from 'react-bootstrap'
 import ProfileTypeahead from './ProfileTypeahead'
 import Notification from './Notification'
+import axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import companyLogo from '../../resources/company_logo.png'
+import LoggedUser from './LoggedUser'
 
 export default function DefaultNavbar() {
+    const [loggedUser, setLoggedUser] = useState(null);
+    const { user } = useAuth0();
+
+    useEffect(() => {
+        getLoggedUser()
+    }, [])
+
+    const getLoggedUser = () => {
+        if (user !== undefined) {
+            let url = "http://localhost:5000/user/single"
+            axios.get(url, {
+                params: {
+                    email: user.email
+                }
+            })
+                .then(resp => {
+                    setLoggedUser(resp.data)
+                })
+                .catch(error => console.log(error.message))
+        }
+    }
 
     return (
         <Navbar bg="warning" variant="light" >
@@ -22,7 +46,8 @@ export default function DefaultNavbar() {
                 <Nav.Link href="/account/manager">Zarządzaj kontem</Nav.Link>
                 <Nav.Link href="#features">TODO</Nav.Link>
             </Nav>
-            <ProfileTypeahead />
+            <LoggedUser />
+            <ProfileTypeahead loggedUser={loggedUser} />
             <Notification />
         </Navbar>
     )
