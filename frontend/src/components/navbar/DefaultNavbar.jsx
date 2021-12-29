@@ -44,7 +44,7 @@ export default function DefaultNavbar() {
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/account/manager">Zarządzaj kontem</Nav.Link>
-                <Nav.Link href="#features">TODO</Nav.Link>
+                <Nav.Link href="/account/analyser">Analizator grzybów</Nav.Link>
             </Nav>
             <LoggedUser />
             <ProfileTypeahead loggedUser={loggedUser} />

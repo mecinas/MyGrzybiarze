@@ -61,7 +61,7 @@ export default function ProfileTypeahead(props) {
         let url = "http://localhost:5000/notification"
         let data = {
             notification_type: "action",
-            message: props.loggedUser.firstname + " " + props.loggedUser.surname + " wysłałał/a Ci zaproszenie do znajomych",
+            message: props.loggedUser.firstname + " " + props.loggedUser.surname + " wysłał/a Ci zaproszenie do znajomych",
             user_email: selectedUser.email,
             request_user: props.loggedUser.email
         }

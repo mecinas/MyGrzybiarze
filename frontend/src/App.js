@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard'
 import DefaultNavbar from './components/navbar/DefaultNavbar'
 import AccountManager from './components/account/AccountManager'
 import NotAuthorized from './components/core/NotAuthorized'
+import Analyser from './components/analyser/Analyser'
 
 function App() {
 
@@ -48,6 +49,10 @@ function App() {
 
                     <Route path="/account/manager">
                       <AccountManager />
+                    </Route>
+
+                    <Route path="/account/analyser">
+                      <Analyser />
                     </Route>
 
                   </Router>}

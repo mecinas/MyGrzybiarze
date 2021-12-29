@@ -24,7 +24,7 @@ predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
 azure_controller = Blueprint('AzureRESTController', __name__)
 
 
-@azure_controller.route('/analyse/edible', methods=['POST', 'OPTIONS'])
+@azure_controller.route('/analyser/edible', methods=['POST', 'OPTIONS'])
 def alyse_edible():
     if(request.method == 'OPTIONS'):
         return allowed_methods(['POST'])
@@ -43,7 +43,7 @@ def alyse_edible():
 
     return send_response(jsonify(array_of_predictions))
 
-@azure_controller.route('/analyse/species', methods=['POST', 'OPTIONS'])
+@azure_controller.route('/analyser/species', methods=['POST', 'OPTIONS'])
 def alyse_species():
     if(request.method == 'OPTIONS'):
         return allowed_methods(['POST'])
