@@ -31,7 +31,7 @@ export default function DefaultNavbar() {
         }
     }
 
-    return (
+    return ( loggedUser &&
         <Navbar bg="warning" variant="light" >
             <Navbar.Brand href="/account/dashboard">
                 <img
@@ -42,6 +42,7 @@ export default function DefaultNavbar() {
                     alt="React Bootstrap logo"
                 />
             </Navbar.Brand>
+            <h5>{loggedUser.firstname + " " + loggedUser.surname}</h5>
             <Nav className="mr-auto">
                 <Nav.Link href="/account/manager">Zarządzaj kontem</Nav.Link>
                 <Nav.Link href="/account/analyser">Analizator grzybów</Nav.Link>

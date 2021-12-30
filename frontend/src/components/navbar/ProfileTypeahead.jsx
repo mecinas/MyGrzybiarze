@@ -25,7 +25,10 @@ export default function ProfileTypeahead(props) {
     const getUsers = () => {
         axios.get("http://localhost:5000/user/list")
             .then(resp => {
-                setOptions(resp.data)
+                setOptions(resp.data.filter(person =>{
+                    if(!person.includes(props.loggedUser.email))
+                        return person
+                }))
             }).catch(error => {
                 console.log(error.message)
             })
