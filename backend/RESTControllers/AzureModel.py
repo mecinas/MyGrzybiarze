@@ -56,7 +56,7 @@ def alyse_species():
 
 
 @azure_controller.route('/analyser/test/species', methods=['GET', 'OPTIONS'])
-def test():
+def test_species():
     if(request.method == 'OPTIONS'):
         return allowed_methods(['GET'])
 
@@ -81,8 +81,8 @@ def test():
     accurancy = str((correct/all)*100)
     return send_response(accurancy)
 
-@azure_controller.route('/analyser/test/species', methods=['GET', 'OPTIONS'])
-def test():
+@azure_controller.route('/analyser/test/edible', methods=['GET', 'OPTIONS'])
+def test_edible():
     if(request.method == 'OPTIONS'):
         return allowed_methods(['GET'])
 
