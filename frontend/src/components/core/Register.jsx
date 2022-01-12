@@ -20,7 +20,10 @@ export default function CreateUser(props) {
         createUser(data)
         sessionStorage.setItem('isLogged', true)
         props.setIsLogged(true)
-        history.push("/account/dashboard")
+        setTimeout(() => {
+            history.push("/account/dashboard")
+        }, 500)
+        
     }
 
     const createUser = (data) => {

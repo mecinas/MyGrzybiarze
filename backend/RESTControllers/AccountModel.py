@@ -20,7 +20,7 @@ def register():
     surname = data["surname"]
     email = data["email"]
     dateOfBirth = data["dateOfBirth"]
-    photo = open("resources/noname.png", 'rb')
+    photo = open("Resources/noname.png", 'rb')
     
     manipulate_account.insert_into_account(nickname, firstname, surname, dateOfBirth, email, photo.read())
     return send_response("Poprawnie zarejestrowano użytkownika")

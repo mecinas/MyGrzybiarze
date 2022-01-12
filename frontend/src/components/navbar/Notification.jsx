@@ -41,6 +41,7 @@ export default function Notification() {
     }
 
     const postFriendship = (sec_user_email) => {
+        console.log(sec_user_email)
         var url = "http://localhost:5000/friendship"
         if (user !== undefined) {
             axios.post(url, {

@@ -60,13 +60,15 @@ export default function ProfileTypeahead(props) {
         })
     }
 
-    const sendFriendRequest = (request_user) => {
+    const sendFriendRequest = () => {
         let url = "http://localhost:5000/notification"
+        console.log(props.loggedUser.email)
+        console.log(selectedUser.email)
         let data = {
             notification_type: "action",
             message: props.loggedUser.firstname + " " + props.loggedUser.surname + " wysłał/a Ci zaproszenie do znajomych",
             user_email: selectedUser.email,
-            request_user: props.loggedUser.email
+            request_email: props.loggedUser.email
         }
         axios.post(url, data)
         .catch(error => console.log(error.message))
