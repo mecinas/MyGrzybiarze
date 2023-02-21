@@ -1,0 +1,1 @@
+#Czas na implementację YOLO na wyuczonej bazie

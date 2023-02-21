@@ -6,7 +6,7 @@ import shutil
 not_allowed_photo_types = ["pory", "siedlisko", "wysyp zarodników",
                      "blue boxes - individual measurements, green star - average"]
 not_allowed_file_substrings = ["znalezisko", "mikro", "root"]
-relative_path_to_data = "./MyGrzybiarzeData/AnalyseMushroomDataset/"
+relative_path_to_data = ".././MyGrzybiarzeData/AnalyseMushroomDataset/"
 
 def find_mushroom_photo_types(array_of_file_paths):
     num_of_type_count = 10
